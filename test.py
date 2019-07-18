@@ -1,6 +1,11 @@
+HOST='192.168.250.151'
+USERNAME='admin'
+PASSWORD='C!sc0123'
+
+
 from cobra.mit.access import MoDirectory
 from cobra.mit.session import LoginSession
-session = LoginSession('https://192.168.250.151', 'admin', 'C!sc0123')
+session = LoginSession(HOST, USERNAME, PASSWORD)
 moDir = MoDirectory(session)
 moDir.login()
 
