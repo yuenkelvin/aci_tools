@@ -4,12 +4,14 @@ PASS='C!sc0123'
 
 from cobra.mit.access import MoDirectory
 from cobra.mit.session import LoginSession
-session = LoginSession(HOST, USER, PASS)
-moDir = MoDirectory(session)
-moDir.login()
 
 from cobra.mit.request import DnQuery
 from cobra.mit.request import ClassQuery
+
+#login Session
+session = LoginSession(HOST, USER, PASS)
+moDir = MoDirectory(session)
+moDir.login()
 
 # Specify the object class
 TENANTS_Q = ClassQuery("fvTenant")
