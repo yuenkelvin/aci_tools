@@ -1,11 +1,10 @@
-HOST='192.168.250.151'
-USERNAME='admin'
-PASSWORD='C!sc0123'
-
+HOST='https://192.168.250.151'
+USER='admin'
+PASS='C!sc0123'
 
 from cobra.mit.access import MoDirectory
 from cobra.mit.session import LoginSession
-session = LoginSession(HOST, USERNAME, PASSWORD)
+session = LoginSession(HOST, USER, PASS)
 moDir = MoDirectory(session)
 moDir.login()
 
@@ -20,4 +19,4 @@ TENANTS = moDir.query(TENANTS_Q)
 
 #print(dir(TENANTS))
 for TENANT in TENANTS:
-    print(TENANT.name)
+    print('Tenant: {}'.format(TENANT.name))
