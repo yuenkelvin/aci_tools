@@ -21,21 +21,20 @@ session = MoDirectory(authentication)
 session.login()
 
 #Query Tenant
+tenants = session.query(ClassQuery("fvTenant"))
+for tenant in tenants:
 
-for tenant in session.query(ClassQuery("fvTenant")):
+  print('Tenant: {} {}'.format( tenant.name, tenant.dn))
 
-  print('Tenant: {0}'.format( tenant.name))
+  aps = session.lookupByClass('fvAp', parentDn=tenant.dn)
+  for ap in aps: 
 
-  ap_Q = ClassQuery('fvAp')
-  ap_Q.dn = tenant.dn
-  
-  for ap in session.query(ap_Q): 
-    print('  Application Profile: {0}'.format(ap.name)) 
+    print('  - AP: {}'.format(ap.name)) 
 
-  tenantSubtree_Q = DnQuery(tenant.dn)
-  tenantSubtree_Q.subtree = 'children'
-  
-  
+    epgs = session.lookupByClass('fvAEPg', parentDn=ap.dn)
+    for epg in epgs: 
+ 
+      print('    - EPG: {}'.format(epg.name)) 
     
 
 #Query Fabric Nodes
