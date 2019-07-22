@@ -24,17 +24,17 @@ session.login()
 tenants = session.query(ClassQuery("fvTenant"))
 for tenant in tenants:
 
-  print('Tenant: {} {}'.format( tenant.name, tenant.dn))
+  print('Tenant: {} DN:{}'.format( tenant.name, tenant.dn))
 
   aps = session.lookupByClass('fvAp', parentDn=tenant.dn)
   for ap in aps: 
 
-    print('  - AP: {}'.format(ap.name)) 
+    print('  - AP: {} DN:{}'.format(ap.name, ap.dn)) 
 
     epgs = session.lookupByClass('fvAEPg', parentDn=ap.dn)
     for epg in epgs: 
  
-      print('    - EPG: {}'.format(epg.name)) 
+      print('    - EPG: {} DN:{}'.format(epg.name, epg.dn)) 
     
 
 #Query Fabric Nodes
