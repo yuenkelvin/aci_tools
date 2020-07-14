@@ -9,12 +9,13 @@ import warnings
 import sys
 import json
 
-class RestClient(object):
+class MsoRestClient(object):
     """
     A class for communicating with the MSO REST API using any of the SUPPORTED_METHODS below.
     
     Attributes:
         server_endpoint: string of API URL to query
+        server_port : string of API port number to query
         uri_prefix: string prefix of URI path
         admin_user: string of admin user
         admin_password: string of admin password
@@ -57,10 +58,10 @@ class RestClient(object):
         # __login is called by __init__ only
         loggedIn = self.__msoLogMeIn(server_endpoint, server_port, admin_user, admin_password)
         if loggedIn:
-            print("Login Successful.")
+            print("MSO Login Successful.")
             return loggedIn
         else:
-            print("Failed to log in. Please verify credentials.")
+            print("Failed to log in MSO. Please verify credentials.")
             sys.exit(2)
        
 

@@ -22,7 +22,7 @@ mso_port = '16334'
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 #rc = mso.RestClient(MSO_IP, MSO_ADMIN, MSO_PASSWORD)
-rc = mso.RestClient(mso_ip, mso_port, mso_admin, mso_password)
+rc = mso.MsoRestClient(mso_ip, mso_port, mso_admin, mso_password)
 
 
 # first, let's list all users
