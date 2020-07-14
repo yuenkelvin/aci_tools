@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 
-from openpyxl import load_workbook
+import sys
 import json
+from openpyxl import load_workbook
 
-
-def read_ws(worksheet_name):
+def read_ws(workbook, worksheet):
   ### read excel worksheet and return variable. 
-  ws = wb[worksheet_name]
+  wb = load_workbook(workbook)
+  ws = wb[worksheet]
   rows = ws.max_row
   cols = ws.max_column
 
@@ -17,11 +18,11 @@ def read_ws(worksheet_name):
 
   return ws_dict
 
+def main():
+
+  test_dict = read_ws('config.xlsx', 'page2')
+  print(json.dumps(test_dict,indent=4))
 
 if __name__ == '__main__': 
-
-  wb = load_workbook('config.xlsx')
-
-  test_dict = read_ws('page2')
-  print(json.dumps(test_dict,indent=4))
+  sys.exit(main())
 
