@@ -4,7 +4,6 @@ import json
 import sys
 import mso
 import urllib3
-import json
 import pprint
 
 '''
@@ -16,9 +15,9 @@ except ImportError:
 
 
 mso_ip = 'localhost'
+mso_port = '16334'
 mso_admin = 'admin'
 mso_password = 'Col1@3col1@3Col'
-mso_port = '16334'
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 #rc = mso.RestClient(MSO_IP, MSO_ADMIN, MSO_PASSWORD)
