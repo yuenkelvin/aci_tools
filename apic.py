@@ -49,11 +49,13 @@ class ApicRestClient(object):
         self.http_header["Host"] = self.apic_ip
         url = '%s://%s:%s/api/aaaLogin.xml' % (self.protocol, self.apic_ip, self.apic_port)
         login_string = '<aaaUser name="%s" pwd="%s"/>' % (self.apic_user, self.apic_password)
+        try:
+            req = requests.post(url, data=login_string, headers=self.http_header, verify=False)
+        except requests.exceptions.RequestException as e:
+            print(e)
+            raise SystemExit(e)
 
-        req = requests.post(url, data=login_string, headers=self.http_header, verify=False)
-        raw_cookie = req.cookies['APIC-cookie']
-
-        return raw_cookie
+        return req.cookies['APIC-cookie']
         
 
     def sendApicRequest(self, http_method, uri_path, args=None):
@@ -92,41 +94,3 @@ class ApicRestClient(object):
         """
         """
         return self.sendApicRequest(http_method='DELETE', uri_path=uri_path, args=kwargs)
-
-'''
-
-def main():   
-    ip = 'localhost' 
-    user = 'admin'
-    port = '16114'
-    password = 'Col1@3col1@3Col'
-
-    #cookie = getAPICCookie(ip, user, password, port)
-
-#   apicurl='/api/node/class/fvBD.json?query-target=subtree&rsp-subtree=full'
-    apicurl = '/api/node/mo/uni/tn-ocass.json?query-target=children&target-subtree-class=fvBD&query-target-filter=not(wcard(fvBD.dn,"__ui_"))&rsp-subtree=full&rsp-subtree-class=fvSubnet,fvRsCtx'
-    apicurl = '/api/node/mo/uni/tn-ocass.json?query-target=children&target-subtree-class=fvBD&query-target-filter=not(wcard(fvBD.dn,"__ui_"))&rsp-subtree=full&rsp-subtree-class=fvSubnet,fvRsCtx'
-    apicurl = '/api/node/class/fvBD.json?query-target=subtree&target-subtree-class=fvBD&rsp-subtree=full&rsp-subtree-class=fvSubnet,fvRsCtx'
-    #r = sendAPICRequest(ip,cookie,apicurl,port)
-
-    rc = ApicRestClient(ip,port,user,password)
-    #rc.get(apicurl)
-
-    r = rc.get(apicurl).text
-    parsed_json = json.loads(r)
-    #print(r)
-    if r:
-        parsed_json = json.loads(r)
-    for bd in parsed_json['imdata']:
-        bdDN = bd['fvBD']['attributes']['dn']
-        bcastP = bd['fvBD']['attributes']['bcastP']
-        print("{} uses {}".format(bdDN, bcastP)) 
-    else:
-        print("That didn't work, we received no response back!")
-
-    print(json.dumps(parsed_json['imdata'][10], indent=4))
-
-if __name__ == '__main__':
-    sys.exit(main())
-
-'''
