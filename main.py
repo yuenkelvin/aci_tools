@@ -25,7 +25,7 @@ def main():
     print(json.dumps(test, indent=4)) 
 
 
-
 if __name__ == '__main__':
+
     sys.exit(main())
 

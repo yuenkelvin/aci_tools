@@ -38,7 +38,7 @@ class ApicRestClient(object):
         # __login is called by __init__ only
         loggedIn = self.__getCookie()
         if loggedIn:
-            print("APIO Login Successful.")
+            print("APIC Login Successful.")
             return loggedIn
         else:
             print("Failed to login APIC. Please verify credentials.")
